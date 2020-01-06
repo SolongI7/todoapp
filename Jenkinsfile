@@ -9,7 +9,7 @@ node {
       dir('basics') {
        nodejs(nodeJSInstallationName: 'nodejs') {
        sh label: '', script: '''
-       npm install --only=dev
+       npm install
        npm test 
        '''
       }
