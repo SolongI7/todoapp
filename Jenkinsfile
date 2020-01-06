@@ -6,18 +6,16 @@ node {
      commit_id = readFile('.git/commit-id').trim()
    }
    stage('test') {
-      dir('basics') {
        nodejs(nodeJSInstallationName: 'nodejs') {
        sh label: '', script: '''
        npm install
        npm test 
        '''
-      }
      }
    }
    stage('docker build/push') {
      docker.withRegistry('https://index.docker.io/v1/', 'erik98na') {
-       def app = docker.build("erik98na/devops_cource:erik-${commit_id}", 'basics').push()
+       def app = docker.build("erik98na/devops_cource:erik-${commit_id}").push()
      }
    }
    stage('docker run') {
