@@ -6,12 +6,13 @@ node {
      commit_id = readFile('.git/commit-id').trim()
    }
    stage('test') {
-     nodejs(nodeJSInstallationName: 'nodejs') {
-      sh label: '', script: '''
-      cd basics
-      npm install --only=dev
-      npm test 
-      '''
+      dir('basics') {
+       nodejs(nodeJSInstallationName: 'nodejs') {
+       sh label: '', script: '''
+       npm install --only=dev
+       npm test 
+       '''
+      }
      }
    }
    stage('docker build/push') {
